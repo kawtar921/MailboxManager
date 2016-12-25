@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/appserv-rt.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/asm-3.1.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/jackson-jaxrs-1.9.2.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/jackson-xc-1.9.2.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/javaee.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/javax.ws.rs-api-2.0.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/javax.ws.rs.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/jersey-client-1.17.1.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/jersey-core-1.17.1.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/jersey-json-1.17.1.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/jersey-server-1.17.1.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/jersey-servlet-1.17.1.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/jettison-1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/jsr311-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/abdelhadikawtar/Documents/Telecom/ASR6/Micro-Projet/workspace/DirectoryManager/jars/mysql-connector-java-5.0.8-bin.jar"/>
+	<classpathentry kind="lib" path="/opt/glassfish4/glassfish/lib/javaee.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
