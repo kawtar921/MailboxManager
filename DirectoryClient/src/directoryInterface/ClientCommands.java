@@ -1,5 +1,6 @@
 package directoryInterface;
 
+import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -11,16 +12,17 @@ public class ClientCommands{
 	public static IDirectoryCommands directory;
 	public static Registry registry;
 	
-	public ClientCommands() throws RemoteException, NotBoundException
+	public ClientCommands() throws NotBoundException, IOException
 	{
 		System.setProperty("java.security.policy","file:security.policy");
 		if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
         
-          //String serverIP = "rmi://10.188.177.98/directoryManager";
+		  ReadHosts hosts = new ReadHosts();
+    	  String serverIP = hosts.readFile();
 	      String name = "Directory";
-	      registry = LocateRegistry.getRegistry(1098);
+	      registry = LocateRegistry.getRegistry(serverIP,1098);
           directory = (IDirectoryCommands) registry.lookup(name);
 	}
 	

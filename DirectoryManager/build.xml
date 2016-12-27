@@ -50,9 +50,9 @@
   <target name="build-client" 
         description="Build client jar" >
     <javac classpath="${glassfish.home}/lib/javaee.jar" 
-           srcdir="src/DirectoryInterface"
+           srcdir="src/directoryInterface"
            destdir="."
-           includes="DirectoryCommands.java,IDirectoryCommands.java,RMIDirectoryServer.java"/>
+           includes="DirectoryCommands.java,IDirectoryCommands.java,RMIDirectoryServer.java,ReadHosts.java"/>
   </target>
   
   <target name="build-jar" 
@@ -86,7 +86,7 @@
     <delete file="DirectoryManager.jar"/>
     <delete dir="${entity}"/>
     <delete dir="${ejb}"/>
-    <delete dir="${client}"/>
+    <delete dir="${directoryInterface}"/>
   </target>
 
 </project>

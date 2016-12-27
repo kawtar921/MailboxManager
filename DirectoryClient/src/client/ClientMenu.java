@@ -1,5 +1,6 @@
 package client;
 
+import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -44,10 +45,10 @@ public class ClientMenu {
 		try {
 			directory = new ClientCommands();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		switch(command)
@@ -69,11 +70,14 @@ public class ClientMenu {
 		System.out.println("Enter users' name : ");
 		username = sc.nextLine();
 		
-		//Java RMI response
+		
 		try {
-			System.out.println(directory.addUser(username));
+			System.out.println(directory.userExists(username));
+			if(!directory.userExists(username))
+				System.out.println(directory.addUser(username));
+			else
+				System.out.println("This user already exists !");
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -86,9 +90,11 @@ public class ClientMenu {
 		username = sc.nextLine();
 		
 		try {
-			System.out.println(directory.removeUser(username));
+			if(directory.userExists(username))
+				System.out.println(directory.removeUser(username));
+			else
+				System.out.println("This user doesn't exist!");
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -98,10 +104,14 @@ public class ClientMenu {
 		System.out.println("List of users : ");
 		try {
 			List<String> listUsers = directory.lookupAllUsers();
+			int i = 1;
 			for(String s : listUsers)
-				System.out.println(s);
+			{
+				System.out.println("User " + i + " : " + s);
+				i++;
+			}
+				
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -111,19 +121,27 @@ public class ClientMenu {
 	{
 		String username;
 		boolean read, write;
-		System.out.println("Update User's rights : ");
-		System.out.println("Enter users' name : ");
-		username = sc.nextLine();
-		System.out.println("Enter User's new rights : ");
-		System.out.println("Reading rights : ");
-		read = Boolean.parseBoolean(sc.nextLine());
-		System.out.println("Writing rights : ");
-		write = Boolean.parseBoolean(sc.nextLine());
 		
 		try {
-			System.out.println(directory.updateAUserRights(username, read, write));
+			System.out.println("Update User's rights : ");
+			System.out.println("Enter users' name : ");
+			username = sc.nextLine();
+			if(directory.userExists(username))
+			{
+				System.out.println("Enter User's new rights : ");
+				System.out.println("Reading rights : ");
+				read = Boolean.parseBoolean(sc.nextLine());
+				System.out.println("Writing rights : ");
+				write = Boolean.parseBoolean(sc.nextLine());
+				
+				System.out.println(directory.updateAUserRights(username, read, write));
+			}
+			else
+			{
+				System.out.println("This user doesn't exist!");
+			}
+			
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -136,16 +154,20 @@ public class ClientMenu {
 		username = sc.nextLine();
 		
 		try {
-			List<Boolean> listRights = directory.lookupAUserRights(username);
-			System.out.println("Read : " + listRights.get(0) + " , Write : " + listRights.get(1));
+			if(directory.userExists(username))
+			{
+				List<Boolean> listRights = directory.lookupAUserRights(username);
+				System.out.println("Read : " + listRights.get(0) + " , Write : " + listRights.get(1));
+			}
+			else
+				System.out.println("This user doesn't exist!");
+			
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		scenario();
 	}
 

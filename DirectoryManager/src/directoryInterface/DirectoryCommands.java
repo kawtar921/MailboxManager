@@ -25,7 +25,6 @@ public class DirectoryCommands extends UnicastRemoteObject implements IDirectory
 			ic = new InitialContext();
 			sb = (IUserDirectory) ic.lookup("ejb.IUserDirectory");
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

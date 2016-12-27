@@ -43,14 +43,11 @@ public class UserDirectory extends UnicastRemoteObject implements IUserDirectory
 		this.listUsers = listUsers;
 	}
 
-	
-
 	@Override
 	public boolean userExists(String user) throws RemoteException {
-		if(lookupUser(user)==null)
-		   return false;
-		
-		return true;
+		Query q = em.createQuery("select COUNT(f.userName) from FinalUser f where f.userName = :name");
+        q.setParameter("name", user);
+        return (long)q.getSingleResult()>0;
 	}
 
 	
@@ -58,57 +55,42 @@ public class UserDirectory extends UnicastRemoteObject implements IUserDirectory
 	public String addUser(String username) {
 		FinalUser user = new FinalUser(username);
 		listUsers.add(user);
-		
 		//add user database
 		em.persist(user);
-		
 		return "User " + username + " added!";
-		
-		
-		//send to mailboxmanager to add user
-		//client.addUser(user);
 	}
 
 	@Override
 	public String removeUser(String username) {
 		FinalUser user = lookupUser(username);
 		listUsers.remove(user);
-		
-		//send to mailboxmanager to remove user
-		//client.removeUser(user);
-		
 		//add user database
 		em.remove(user.getNewsRights());
 		em.remove(user);
-		
 		return "User " + username + " removed!";
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> lookupAllUsers() {
 		Query query = em.createQuery("SELECT f.userName from FinalUser f");
 		List<String> list = query.getResultList();
-		return list;
-			
+		return list;	
 	}
 
 	@Override
 	public List<Boolean> lookupAUserRights(String user) {
 		List<Boolean> rights = new ArrayList<Boolean>();
 		FinalUser f = lookupUser(user);
-		
 		rights.add(f.getNewsRights().isReadNewsGroup());
 		rights.add(f.getNewsRights().isWriteNewsGroup());
-		
 		return rights;
 
 	}
 
 	@Override
 	public String updateAUserRights(String user, boolean read, boolean write) {
-		// TODO Auto-generated method stub
 		lookupUser(user).setNewsRights(new NewsGroupRight(read,write));
-		
 		return "User " + user + " updated!";
 	}
 	
@@ -119,7 +101,5 @@ public class UserDirectory extends UnicastRemoteObject implements IUserDirectory
         return (FinalUser)q.getSingleResult();
 		
 	}
-
-
 	
 }

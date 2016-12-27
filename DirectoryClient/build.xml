@@ -25,7 +25,6 @@
   	<target name="all">
     <antcall target="clean"/>
     <antcall target="build"/>
-    <antcall target="run"/>
    </target>
   
   <target name="build" description="build" depends="init">
