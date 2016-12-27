@@ -1,0 +1,64 @@
+<project name="MailboxClient" default="all" basedir=".">
+	 <description>
+       Directory Client.
+    </description>
+   
+	  <property name="glassfish.home" value="/opt/glassfish4"/>
+	  <property name="directoryInterface" value="build/directoryInterface"/>
+	  <property name="client" value="build/client"/>
+	  <property name="main-class" value="client.ClientMenu"/>
+	  
+	   	  
+  	 <target name="init">
+	    <mkdir dir="build"/>
+	    
+  	</target>
+  	
+  	
+  	 <target name="clean" 
+          description="clean up" >
+	    <delete file="DirectoryClient.jar"/>
+	    <delete dir="${mailboxInterface}"/>
+	    <delete dir="${client}"/>
+   </target>
+  	
+  	<target name="all">
+    <antcall target="clean"/>
+    <antcall target="build"/>
+   </target>
+  
+  <target name="build" description="build" depends="init">
+    <antcall target="build-administration"/>
+    <antcall target="build-client"/>
+  	<antcall target="build-jar"/>
+  </target>
+  
+  
+  <target name="build-administration"
+        description="Build admin" >
+    <javac srcdir="src/mailboxInterface"
+           destdir="build"
+           />
+  </target>
+  
+  <target name="build-client"
+        description="Build client" >
+    <javac srcdir="src/client"
+           destdir="build"
+           />
+  </target>
+  
+  
+  
+   <target name="build-jar" 
+        description="Build jar archive" >
+    <jar destfile="MailboxClient.jar"
+         basedir="build"
+	 >
+	 	<manifest>
+	                <attribute name="Main-Class" value="${main-class}"/>
+	    </manifest>
+	 </jar>
+  </target>
+  
+</project>
