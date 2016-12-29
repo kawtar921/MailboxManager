@@ -65,8 +65,18 @@ public class MailboxCommands extends UnicastRemoteObject implements IMailboxComm
 	}
 
 	@Override
-	public List<String> readNews() throws RemoteException {
-		return sb.readNews();
+	public List<String> readNews(String username) throws RemoteException {
+		return sb.readNews(username);
+	}
+	
+	public void addUser(String username) throws RemoteException
+	{
+		sb.addUser(username);
+	}
+	
+	public void removeUser(String username) throws RemoteException
+	{
+		sb.removeUser(username);
 	}
 
 }

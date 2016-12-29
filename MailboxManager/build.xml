@@ -11,6 +11,10 @@
   <property name="ejb" value="ejb"/>
   <property name="mailboxInterface" value="mailboxInterface"/>
 
+  <path id="classpath">
+		<fileset dir="jars" includes="**/*.jar"/>
+  </path>
+	
   <target name="init">
     <!-- Create the build directory structure -->
     <mkdir dir="${entity}"/>
@@ -42,24 +46,28 @@
   <target name="build-ejb"
         description="Build ejb jar" >
     <javac classpath="${glassfish.home}/lib/javaee.jar:./entities.jar" 
+    	   classpathref="classpath"
            srcdir="src/ejb"
            destdir="."
-           includes="MailBoxManager.java,IMailBoxManager.java"/>
+           includes="ReadHosts.java,WebServiceMailboxClient.java,MailBoxManager.java,IMailBoxManager.java"/>
   </target>
 
   <target name="build-client" 
         description="Build client jar" >
     <javac classpath="${glassfish.home}/lib/javaee.jar" 
+    	   classpathref="classpath"
            srcdir="src/mailboxInterface"
            destdir="."
-           includes="MailboxCommands.java,IMailboxCommands.java,RMIDirectoryServer.java"/>
+           includes="MailboxCommands.java,IMailboxCommands.java,RMIDirectoryServer.java,WebServiceImplementation.java,WebServiceMailboxServer.java"/>
   </target>
   
   <target name="build-jar" 
         description="Build jar archive" >
     <jar destfile="MailboxManager.jar"
          basedir="."
-	 includes="META-INF/persistence.xml,mailboxInterface/,ejb/,entity/"/>
+	 includes="META-INF/persistence.xml,mailboxInterface/,ejb/,entity/">
+    	<zipgroupfileset dir="jars/" includes="**/*.jar" />
+    </jar>
   </target>
 
 

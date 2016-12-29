@@ -12,5 +12,5 @@ public interface IMailboxCommands extends Remote{
 	public String removeReadMessages(String username)throws RemoteException;
 	public String removeMessage(String username,String subject)throws RemoteException;
 	public String sendNews(String username, String sendingDate, String subject, String body) throws RemoteException;
-	public List<String> readNews()throws RemoteException;
+	public List<String> readNews(String username)throws RemoteException;
 }

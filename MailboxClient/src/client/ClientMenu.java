@@ -79,10 +79,16 @@ public class ClientMenu {
 
 	private static void readNews(ClientCommands mailbox2) {
 		try {
-			List<String> liste = mailbox.readNews();
+			List<String> liste = mailbox.readNews(username);
 			if(liste.isEmpty())
 			{
 				System.out.println("No news !");
+				return;
+			}
+			
+			if(liste.get(0).equals("ERROR"))
+			{
+				System.out.println("You don't have enough rights!");
 				return;
 			}
 

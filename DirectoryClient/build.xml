@@ -6,12 +6,16 @@
 	  <property name="glassfish.home" value="/opt/glassfish4"/>
 	  <property name="directoryInterface" value="build/directoryInterface"/>
 	  <property name="client" value="build/client"/>
-	  <property name="main-class" value="client.ClientMenu"/>
+	  <property name="main-class" value="client.ScenarioPredefini"/>
 	  
+	
+	 <path id="classpath">
+		    <fileset dir="jars" includes="**/*.jar"/>
+	  </path>
+
 	   	  
   	 <target name="init">
 	    <mkdir dir="build"/>
-	    
   	</target>
   	
   	
@@ -36,14 +40,16 @@
   
   <target name="build-administration"
         description="Build admin" >
-    <javac srcdir="src/directoryInterface"
+    <javac classpathref="classpath"
+    	   srcdir="src/directoryInterface"
            destdir="build"
            />
   </target>
   
   <target name="build-client"
         description="Build client" >
-    <javac srcdir="src/client"
+    <javac classpathref="classpath"
+    	   srcdir="src/client"
            destdir="build"
            />
   </target>
@@ -57,7 +63,9 @@
 	 >
 	 	<manifest>
 	                <attribute name="Main-Class" value="${main-class}"/>
+	 			
 	    </manifest>
+    	<zipgroupfileset dir="jars/" includes="**/*.jar" />
 	 </jar>
   </target>
   

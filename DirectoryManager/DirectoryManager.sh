@@ -1,3 +1,3 @@
 #!/bin/bash
-java directoryInterface.RMIDirectoryServer
+java -cp "/opt/glassfish4/glassfish/lib/*:jars/*:." directoryInterface.RMIDirectoryServer
 

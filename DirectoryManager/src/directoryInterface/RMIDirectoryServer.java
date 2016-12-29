@@ -4,9 +4,6 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-
-
-
 public class RMIDirectoryServer {
 
 	public static Registry reg;
@@ -19,16 +16,14 @@ public class RMIDirectoryServer {
 	        
 		try {
 			
-			
 			reg = LocateRegistry.createRegistry(1098);
 			DirectoryCommands directory = new DirectoryCommands();
 			reg.rebind("Directory", directory);
 			System.out.println("Server on!");
-			
-			
+
 		} catch (RemoteException e) {
 			e.printStackTrace();
-		}
+		} 
 
 	}
 

@@ -11,7 +11,11 @@
   <property name="ejb" value="ejb"/>
   <property name="directoryInterface" value="directoryInterface"/>
 
-  <target name="init">
+  <path id="classpath">
+	    <fileset dir="jars" includes="**/*.jar"/>
+  </path>
+  
+	<target name="init">
     <!-- Create the build directory structure -->
     <mkdir dir="${entity}"/>
     <mkdir dir="${ejb}"/>
@@ -42,24 +46,28 @@
   <target name="build-ejb"
         description="Build ejb jar" >
     <javac classpath="${glassfish.home}/lib/javaee.jar:./entities.jar" 
+    	   classpathref="classpath"
            srcdir="src/ejb"
            destdir="."
-           includes="UserDirectory.java,IUserDirectory.java"/>
+           includes="UserDirectory.java,IUserDirectory.java,WebServiceDirectoryClient.java,ReadHosts.java,jars/jersey-client-1.17.1.jar"/>
   </target>
 
   <target name="build-client" 
         description="Build client jar" >
     <javac classpath="${glassfish.home}/lib/javaee.jar" 
+    	   classpathref="classpath"
            srcdir="src/directoryInterface"
            destdir="."
-           includes="DirectoryCommands.java,IDirectoryCommands.java,RMIDirectoryServer.java,ReadHosts.java"/>
+           includes="DirectoryCommands.java,IDirectoryCommands.java,RMIDirectoryServer.java,WebServiceDirectoryServer.java,WebServiceImplementation.java"/>
   </target>
   
   <target name="build-jar" 
         description="Build jar archive" >
     <jar destfile="DirectoryManager.jar"
          basedir="."
-	 includes="META-INF/persistence.xml,directoryInterface/,ejb/,entity/"/>
+	 includes="META-INF/persistence.xml,directoryInterface/,ejb/,entity/">
+    	<zipgroupfileset dir="jars/" includes="**/*.jar" />
+    </jar>
   </target>
 
 

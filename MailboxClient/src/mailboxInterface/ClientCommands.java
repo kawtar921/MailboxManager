@@ -22,7 +22,7 @@ public class ClientCommands {
 		  ReadHosts hosts = new ReadHosts();
     	  String serverIP = hosts.readFile();
 	      String name = "Mailbox";
-	      registry = LocateRegistry.getRegistry(serverIP,1098);
+	      registry = LocateRegistry.getRegistry(serverIP,1097);
 	      mailbox = (IMailboxCommands) registry.lookup(name);
 	}
 	
@@ -55,8 +55,8 @@ public class ClientCommands {
 		return mailbox.sendNews(username,sendingDate,subject,body);
 	}
 	
-	public List<String> readNews() throws RemoteException
+	public List<String> readNews(String username) throws RemoteException
 	{
-		return mailbox.readNews();
+		return mailbox.readNews(username);
 	}
 }

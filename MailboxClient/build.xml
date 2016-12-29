@@ -6,7 +6,7 @@
 	  <property name="glassfish.home" value="/opt/glassfish4"/>
 	  <property name="directoryInterface" value="build/directoryInterface"/>
 	  <property name="client" value="build/client"/>
-	  <property name="main-class" value="client.ClientMenu"/>
+	  <property name="main-class" value="client.ScenarioPredefini"/>
 	  
 	   	  
   	 <target name="init">

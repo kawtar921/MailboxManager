@@ -1,5 +1,6 @@
 package directoryInterface;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -8,6 +9,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import ejb.IUserDirectory;
+import ejb.WebServiceDirectoryClient;
 
 public class DirectoryCommands extends UnicastRemoteObject implements IDirectoryCommands{
 
@@ -16,7 +18,7 @@ public class DirectoryCommands extends UnicastRemoteObject implements IDirectory
 	 */
 	private static final long serialVersionUID = 1L;
     private static IUserDirectory sb;
-    
+    private WebServiceDirectoryClient webservice;
     
 	protected DirectoryCommands() throws RemoteException {
 		super();
@@ -24,7 +26,11 @@ public class DirectoryCommands extends UnicastRemoteObject implements IDirectory
 		try {
 			ic = new InitialContext();
 			sb = (IUserDirectory) ic.lookup("ejb.IUserDirectory");
+			webservice = new WebServiceDirectoryClient();
 		} catch (NamingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -32,6 +38,8 @@ public class DirectoryCommands extends UnicastRemoteObject implements IDirectory
 
 	@Override
 	public String addUser(String user) throws RemoteException {
+		//webservice
+		webservice.addUser(user);
 		return sb.addUser(user);
 	}
 
@@ -42,6 +50,8 @@ public class DirectoryCommands extends UnicastRemoteObject implements IDirectory
 
 	@Override
 	public String removeUser(String user) throws RemoteException {
+		//webservice
+		webservice.removeUser(user);
 		return sb.removeUser(user);
 	}
 
@@ -59,5 +69,7 @@ public class DirectoryCommands extends UnicastRemoteObject implements IDirectory
 	public String updateAUserRights(String user, boolean read, boolean write) throws RemoteException {
 		return sb.updateAUserRights(user, read, write);
 	}
+	
+	
 
 }

@@ -16,14 +16,14 @@ public class RMIDirectoryServer {
 	        
 		try {
 			
-			reg = LocateRegistry.createRegistry(1098);
+			reg = LocateRegistry.createRegistry(1097);
 			MailboxCommands mailbox = new MailboxCommands();
 			reg.rebind("Mailbox", mailbox);
 			System.out.println("Server on!");
 			
 		} catch (RemoteException e) {
 			e.printStackTrace();
-		}
+		} 
 
 	}
 

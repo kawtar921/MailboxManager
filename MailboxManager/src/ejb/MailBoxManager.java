@@ -1,5 +1,6 @@
 package ejb;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -125,11 +126,22 @@ public class MailBoxManager extends UnicastRemoteObject implements IMailBoxManag
 	
 	@Override
 	public String sendNews(String user, Message mess) {
-	   NewsBox newsBox = getNewsBox();
-	   newsBox.addMessage(mess);
-	   mess.setBox(newsBox);
-	   return "News sent!";
-	   
+	   //Webservice
+		try {
+		WebServiceMailboxClient webservice = new WebServiceMailboxClient();
+		if(webservice.getWriteRightsForUser(user))
+		{
+			   NewsBox newsBox = getNewsBox();
+			   newsBox.addMessage(mess);
+			   mess.setBox(newsBox);
+			   return "News sent!";
+		}
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	  return "You don't have enough rights!";
+		
 	}
 	
 	
@@ -183,21 +195,37 @@ public class MailBoxManager extends UnicastRemoteObject implements IMailBoxManag
 	}
 
 	@Override
-	public List<String> readNews() throws RemoteException {
-		NewsBox newsBox = getNewsBox();
+	public List<String> readNews(String username) throws RemoteException {
 		List<String> messages = new ArrayList<String>();
-		for(Message m : newsBox.readAllMessages())
-		{
-			messages.add(m.getSenderName()+":"+m.getReceiverName()+":"+m.getSendingDate()+":"+m.getSubject()+":"+m.getBody());
+		//webservice
+		try {
+			WebServiceMailboxClient webservice = new WebServiceMailboxClient();
+			
+			if(webservice.getReadRightsForUser(username))
+			{
+				NewsBox newsBox = getNewsBox();
+				for(Message m : newsBox.readAllMessages())
+				{
+					messages.add(m.getSenderName()+":"+m.getReceiverName()+":"+m.getSendingDate()+":"+m.getSubject()+":"+m.getBody());
+				}
+				
+			}else
+			{
+				messages.add("ERROR");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return messages;
+		
 	}
 	
 	private NewsBox getNewsBox()
 	{
 		Query query = em.createQuery("SELECT b from Box b WHERE TYPE(b) = :type");
 		query.setParameter("type", NewsBox.class);
-		return (NewsBox) query.getSingleResult();
+		return (NewsBox) query.getResultList().get(0);
 	}
 	
 

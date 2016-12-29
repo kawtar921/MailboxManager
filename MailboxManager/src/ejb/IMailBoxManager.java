@@ -19,5 +19,5 @@ public interface IMailBoxManager{
 	public String sendNews(String sender, Message mess)throws RemoteException;
 	public boolean userExists(String name)throws RemoteException;
 	public void addNewsBox()throws RemoteException;
-	public List<String> readNews() throws RemoteException;
+	public List<String> readNews(String username) throws RemoteException;
 }

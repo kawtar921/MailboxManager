@@ -1,5 +1,6 @@
 package ejb;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -24,13 +25,15 @@ public class UserDirectory extends UnicastRemoteObject implements IUserDirectory
 	private static final long serialVersionUID = 1L;
 
 	private Collection<FinalUser> listUsers;
+	//private WebServiceDirectoryClient webservice;
 	
 	@PersistenceContext(unitName="pu1")
     private EntityManager em;
 	
-	public UserDirectory() throws RemoteException
+	public UserDirectory() throws IOException
 	{
 		listUsers = new ArrayList<FinalUser>();
+		//swebservice = new WebServiceDirectoryClient();
 	}
 	
 	
@@ -57,6 +60,8 @@ public class UserDirectory extends UnicastRemoteObject implements IUserDirectory
 		listUsers.add(user);
 		//add user database
 		em.persist(user);
+		//webservice
+		//webservice.addUser(username);
 		return "User " + username + " added!";
 	}
 
@@ -67,6 +72,8 @@ public class UserDirectory extends UnicastRemoteObject implements IUserDirectory
 		//add user database
 		em.remove(user.getNewsRights());
 		em.remove(user);
+		//webservice
+		//webservice.removeUser(username);
 		return "User " + username + " removed!";
 	}
 
