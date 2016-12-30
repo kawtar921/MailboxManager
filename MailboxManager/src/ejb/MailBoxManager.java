@@ -76,9 +76,11 @@ public class MailBoxManager extends UnicastRemoteObject implements IMailBoxManag
 	
 	@Override
 	public String deleteAUserReadMessages(String user) {
-		MailBox mailbox = getBoxOfUser(user);
-		mailbox.deleteReadMessages();
-		return "messages deleted!";
+        Query query = em.createNativeQuery("SELECT id from BOX b WHERE b.username='" + user + "'");
+        long id = (long)query.getSingleResult();
+        query = em.createNativeQuery("DELETE from MESSAGE WHERE BOX_ID=" + id + " AND ALREADYREAD=1");
+        query.executeUpdate();
+        return "messages deleted!";
 	}
 	
 	@Override
